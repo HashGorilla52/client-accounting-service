@@ -1,0 +1,24 @@
+package com.lde.clientaccountingservice.error;
+
+import java.util.Map;
+import static java.util.Map.entry;
+
+public class DataIntegrityErrorMapper {
+    private static final Map<String, String> SQL_STATE_CODES =  Map.ofEntries(
+            entry("23505", "duplicate value: record already exists"),
+            entry("23503", "related record not found"),
+            entry("230502", "required filed is missing"),
+            entry("23P01", "value violates a check constraint")
+    );
+
+    private static final String defaultMessage = "violation of an integrity constraint(s)";
+
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public String getMessageBySqlStateCode(String sqlStateCode) {
+        return SQL_STATE_CODES.get(sqlStateCode);
+    }
+}
+
